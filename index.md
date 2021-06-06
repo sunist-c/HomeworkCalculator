@@ -1,4 +1,4 @@
-# Homework Calculator文档
+# Homework Calculator
 
 ## 什么是 `Homework Calculator`
 
@@ -15,7 +15,7 @@
 
 ## 怎么使用
 
-1. 下载`Release`包，解压以后会发现三个文件：`config.json`，`student.csv`，`HomeworkCalculator.exe`
+1. 下载`Release`包，解压以后会发现以下三个文件：`config.json`，`student.csv`，`HomeworkCalculator.exe`
 2. 将要检测的文件全部放在一个文件夹内
 3. 将`config.json`，`student.csv`复制到上一步的文件夹内
 4. 修改`config.json`和`student.csv`，内容为要检测的实际情况，参数说明见下节
@@ -26,13 +26,15 @@
 
 ### `config.json`的修改
 
-`config.json`只有两个属性，`AllFileType`和 `MatchingRules`。
+`config.json`有四个属性，`AllFileType`，`MatchingRules`，`Brush`和 `DefaultFileName`。
 
-+ `AllFileType` 这是Homework Calculator回检测的文件列表，其中的文件类型会被加载进运行时。文件类型拓展名需要大写，`.`标识符是不可缺少的
++ `AllFileType` 是`Homework Calculator`检测的文件类型列表，其中的文件类型会被加载进运行时。文件类型拓展名需要大写，`.`标识符是不可缺少的
 + `MatchingRules`是一个枚举，有三种模式：`Name`，`StudentNumber`和`Strict`，区分大小写
   + `Name`为按照姓名进行文件名匹配，含有该同学的姓名即视为该同学提交了作业
   + `StudentNumber`为按照学号进行文件名匹配，含有该同学的学号即视为该同学提交了作业
   + `Strict`为严格按照命名规则进行匹配，命名规则将稍后解释
++ `Brush`是一个bool，为是否需要高亮显示(经检测在排序后高亮可能位置错误)
++ `DefaultFileName`是默认的文件命名规则，会在加载配置时在运行时设置
 
 ### `student.csv`的修改
 
@@ -66,6 +68,12 @@
 
 有其他问题请提交issue或邮件[sunit@mail.swu-acm.cn]()进行联系
 
+## 二次开发
+
+其实读完代码只需要不到半小时......
+
+要在 `config.json`中加入更多字段的话，需要在 `configType`和 `Config`两个类中都增加相应字段，一定要设置 `get`方法。
+
 ## 许可
 
-本软件使用GPL v3协议进行许可，可以在许可范围内任意使用，不过确实没什么价值(bushi
+本软件使用GPL v2协议进行许可，可以在许可范围内任意使用，不过确实没什么价值(bushi
