@@ -1,0 +1,106 @@
+﻿<Window x:Class="HomeworkCalculator.MainWindow"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HomeworkCalculator" 
+        xmlns:viewmodule="clr-namespace:HomeworkCalculator.ViewModule"
+        mc:Ignorable="d"
+        Title="作业提交情况计算器" Height="450" Width="800" SizeChanged="Window_SizeChanged">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <!--工具栏-->
+        <Menu Grid.Row="0" Grid.ColumnSpan="3">
+            <MenuItem Header="操作">
+                <MenuItem Header="检查提交状况" Click="CheckStatus_Click"/>
+                <MenuItem Header="一键更改名称" Click="ChangeFileName_Click"/>
+                <MenuItem Header="一键解压ZIP" Click="UnZip_Click"/>
+                <MenuItem Header="复制到选定路径" Click="CopyToPath_Click"/>
+                <MenuItem Header="导出提交状况" Click="OutputData_Click"/>
+            </MenuItem>
+            <MenuItem Header="配置">
+                <MenuItem Header="读取配置" Click="BroseNameList_Click"/>
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="帮助文档" Name="GoToDocument" Click="GoToDocument_Click"/>
+                <MenuItem Header="GitHub页面" Name="GoToGitHub" Click="GoToGitHub_Click"/>
+            </MenuItem>
+            <MenuItem Header="关于" Click="GoToGitHub_Click"/>
+        </Menu>
+
+        <!--选择名单-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="NameListPath" Grid.Column="0" Margin="5" Text="未选择配置文件" Foreground="Gray" IsReadOnly="True"/>
+            <Button x:Name="BroseNameList" Content="浏览配置文件" Click="BroseNameList_Click" Grid.Column="1"/>
+        </Grid>
+        
+        <!--数据区域-->
+        <Grid Grid.Row="2" Grid.Column="1">
+            <DataGrid x:Name="DataViewer" Background="Transparent" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding}" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="姓名" Foreground="Black" MinWidth="50" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="学号" Foreground="Black" MinWidth="100" Binding="{Binding StudentNumber}"/>
+                    <DataGridTextColumn Header="文件" Foreground="Black" MinWidth="200" Binding="{Binding FilePath}"/>
+                    <DataGridTextColumn Header="状态" Foreground="Black" MinWidth="50" Binding="{Binding Status}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!--命名规范-->
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="FileNameFormat" Grid.Column="0" Margin="5" hc:InfoElement.Placeholder="若命名规则不正确，可能会造成文件丢失或损坏" Style="{StaticResource TextBoxExtend}"/>
+            <Button x:Name="FileNameFormatUpdate" Content="更新命名规则" Click="FileNameFormatUpdate_Click" Grid.Column="1"/>
+        </Grid>
+        
+        <!--文件格式-->
+        <Grid Grid.Row="4" Grid.Column="1">
+            <hc:CheckComboBox Name="FileType" Margin="5" ShowClearButton="True" ShowSelectAllButton="True" hc:InfoElement.Placeholder="允许的文件类型" Style="{StaticResource CheckComboBoxExtend}">
+            </hc:CheckComboBox>
+        </Grid>
+        
+        <!--操作列表-->
+        <Grid Grid.Row="5" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button x:Name="CheckStatus" Content="检查提交状况" Click="CheckStatus_Click" Width="100" Margin="0,0,5,0"/>
+                <Button x:Name="ChangeFileName" Content="一键更改名称" Click="ChangeFileName_Click" Width="100" Margin="5,0"/>
+                <Button x:Name="UnZip" Content="一键解压Zip" Click="UnZip_Click" Width="100" Margin="5,0"/>
+                <Button x:Name="CopyToPath" Content="复制到路径" Click="CopyToPath_Click" Width="100" Margin="5,0"/>
+                <Button x:Name="OutputData" Content="导出提交状况" Click="OutputData_Click" Width="100" Margin="5,0"/>
+            </StackPanel>
+        </Grid>
+        
+        <!--状态栏-->
+        <StatusBar Grid.Row="6" Grid.ColumnSpan="3">
+            <StatusBarItem HorizontalAlignment="Left">
+                <TextBlock Text="欢迎使用作业提交情况计算器"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="就绪" Name="StatusBarText"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
