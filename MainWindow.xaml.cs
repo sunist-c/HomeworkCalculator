@@ -16,6 +16,7 @@ using HomeworkCalculator.Config;
 using HomeworkCalculator.Algorithm;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace HomeworkCalculator
 {
@@ -31,6 +32,7 @@ namespace HomeworkCalculator
             InitializeComponent();
             viewList.Add(new FormsView() { Name = "数据为空" });
             DataViewer.ItemsSource = viewList;
+            FileNameFormat.Text = Config.Config.DefaultFileName;
             Console.WriteLine(JsonConvert.SerializeObject(new configType()));
         }
 
@@ -330,16 +332,22 @@ namespace HomeworkCalculator
 
         private void GoToGitHub_Click(object sender, RoutedEventArgs e)
         {
-
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "https://github.com/sunist-c/HomeworkCalculator";
+            proc.Start();
         }
 
         private void GoToDocument_Click(object sender, RoutedEventArgs e)
         {
-
+            Process proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "https://sunist-c.github.io/HomeworkCalculator/";
+            proc.Start();
         }
 
         private void SetBrush()
         {
+            if (!Config.Config.Brush) return;
+
             for (int i = 0; i < viewList.Count; ++i)
             {
                 if (viewList[i].Status == "未提交")

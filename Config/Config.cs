@@ -16,6 +16,8 @@ namespace HomeworkCalculator.Config
 
         static internal string MatchingRules { get; set; }
         static internal string ConfigPath { get; set; }
+        static internal string DefaultFileName { get; set; }
+        static internal bool Brush { get; set; }
         static Config()
         {
         }
@@ -26,6 +28,8 @@ namespace HomeworkCalculator.Config
             _allowFileType = type.AllowFileType;
             _allFileType = type.AllFileType;
             MatchingRules = type.MatchingRules;
+            Brush = type.Brush;
+            DefaultFileName = type.DefaultFileName;
         }
     }
 }

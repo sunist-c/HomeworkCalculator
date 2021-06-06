@@ -15,9 +15,13 @@ namespace HomeworkCalculator.Config
 
         public string MatchingRules { get; set; }
         public string ConfigPath { get; set; }
+
+        public string DefaultFileName { get; set; }
+
+        public bool Brush { get; set; }
         public configType()
         {
-
+            
         }
     }
 }
